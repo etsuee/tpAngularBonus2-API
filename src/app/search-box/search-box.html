@@ -1,0 +1,8 @@
+<label for="search">Rechercher un collègue</label>
+<input
+  #searchInput
+  id="search"
+  type="search"
+  [value]="query()"
+  (input)="query.set(searchInput.value)"
+/>

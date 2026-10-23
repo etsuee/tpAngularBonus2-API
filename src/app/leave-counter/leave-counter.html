@@ -1,0 +1,40 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>Solde</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Jours posés : {{ daysTaken() }}</p>
+    <!-- aria-live : le lecteur d'ecran annonce le nouveau solde. -->
+    <p aria-live="polite" [class.counter--empty]="isEmpty()">
+      Jours restants : {{ remainingDays() }} / {{ totalDays }}
+    </p>
+    <p>Vous avez utilisé {{ usedPercent() }} % de vos congés.</p>
+
+    <div class="counter__actions">
+      <button matButton="filled" type="button" [disabled]="isEmpty()" (click)="addDay()">
+        Poser un jour
+      </button>
+      <button matButton="filled" type="button" [disabled]="isEmpty()" (click)="addWeek()">
+        Poser une semaine
+      </button>
+      <button
+        matButton="outlined"
+        type="button"
+        [disabled]="daysTaken() === 0"
+        (click)="removeDay()"
+      >
+        Annuler un jour
+      </button>
+      <button matButton type="button" (click)="reset()">Remettre à zéro</button>
+    </div>
+
+    @if (history().length > 0) {
+      <h3 class="counter__history-title">Historique</h3>
+      <ol class="counter__history">
+        @for (line of history(); track $index) {
+          <li>{{ line }}</li>
+        }
+      </ol>
+    }
+  </mat-card-content>
+</mat-card>

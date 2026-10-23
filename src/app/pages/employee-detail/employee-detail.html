@@ -1,0 +1,20 @@
+@if (employee(); as employee) {
+  <h1>{{ employee.firstName }} {{ employee.lastName }}</h1>
+  <dl class="details">
+    <dt>Poste</dt>
+    <dd>{{ employee.job }}</dd>
+    <dt>Service</dt>
+    <dd>{{ employee.department }}</dd>
+    <dt>E-mail</dt>
+    <dd>
+      <a [href]="'mailto:' + employee.email">{{ employee.email }}</a>
+    </dd>
+    <dt>Statut</dt>
+    <dd><app-status-badge [remote]="employee.remote" /></dd>
+  </dl>
+} @else {
+  <h1>Collègue introuvable</h1>
+  <p>Aucun collègue ne correspond à l'identifiant « {{ id() }} ».</p>
+}
+
+<p><a routerLink="/equipe">Retour à l'équipe</a></p>

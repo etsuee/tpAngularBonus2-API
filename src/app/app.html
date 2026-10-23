@@ -1,0 +1,25 @@
+<header>
+  <mat-toolbar>
+    <span class="app-name">{{ appName }}</span>
+    <nav aria-label="Navigation principale">
+      <a
+        matButton
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page"
+        >Accueil</a
+      >
+      <a matButton routerLink="/equipe" routerLinkActive="active" ariaCurrentWhenActive="page"
+        >Équipe</a
+      >
+      <a matButton routerLink="/ajouter" routerLinkActive="active" ariaCurrentWhenActive="page"
+        >Ajouter</a
+      >
+    </nav>
+  </mat-toolbar>
+</header>
+
+<main class="container">
+  <router-outlet />
+</main>

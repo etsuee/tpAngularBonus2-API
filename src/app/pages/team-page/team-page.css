@@ -1,0 +1,49 @@
+/* Mobile d'abord : une colonne, puis une grille sur les ecrans plus larges. */
+.team {
+  display: grid;
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 40rem) {
+  .team {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 64rem) {
+  .team {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+select {
+  padding: 0.5rem;
+  border: 1px solid #6b7280;
+  border-radius: 0.25rem;
+  font: inherit;
+}
+
+.team__position {
+  margin: 0 0 0.25rem;
+  color: #4b5563;
+  font-size: 0.875rem;
+}
+
+.remove {
+  margin-top: 0.25rem;
+  color: #b91c1c;
+}

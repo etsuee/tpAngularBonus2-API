@@ -1,0 +1,12 @@
+.badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 1rem;
+  background-color: #e5e7eb;
+  font-size: 0.875rem;
+}
+
+.badge--remote {
+  background-color: #dbeafe;
+  color: #1e3a8a;
+}

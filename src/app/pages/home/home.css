@@ -1,0 +1,30 @@
+.actions,
+.status__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Le bouton du statut choisi est mis en evidence. */
+[aria-pressed='true'] {
+  background-color: #dbeafe;
+}
+
+section {
+  margin-top: 2rem;
+}
+
+.try {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: 24rem;
+  margin-top: 1rem;
+}
+
+.try input {
+  padding: 0.5rem;
+  border: 1px solid #6b7280;
+  border-radius: 0.25rem;
+  font: inherit;
+}

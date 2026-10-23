@@ -1,0 +1,121 @@
+<h1>Ajouter un collègue</h1>
+<p>Tous les champs sont obligatoires, sauf le télétravail.</p>
+
+<!-- Un raccourci par champ : l'etat du champ (valeur, erreurs, touche...). -->
+@let firstName = employeeForm.firstName();
+@let lastName = employeeForm.lastName();
+@let emailField = employeeForm.email();
+@let job = employeeForm.job();
+@let remoteDays = employeeForm.remoteDays();
+@let formState = employeeForm();
+
+<!-- [formRoot] : a l'envoi, marque tous les champs comme touches
+     puis appelle l'action seulement si tout est valide. -->
+<form class="form" [formRoot]="employeeForm">
+  <!-- Defi intermediaire phase 5 : role="alert", le recapitulatif est annonce des qu'il apparait. -->
+  @if (submitAttempted() && formState.invalid()) {
+    <div class="summary" role="alert">
+      <p class="summary__title">Le collègue ne peut pas être ajouté :</p>
+      <ul>
+        @for (error of formState.errorSummary(); track $index) {
+          <li>{{ error.message }}</li>
+        }
+      </ul>
+    </div>
+  }
+
+  <div class="field">
+    <label for="first-name">Prénom</label>
+    <input
+      id="first-name"
+      [formField]="employeeForm.firstName"
+      [attr.aria-invalid]="firstName.touched() && firstName.invalid()"
+      [attr.aria-describedby]="
+        firstName.touched() && firstName.invalid() ? 'first-name-error' : null
+      "
+    />
+    @if (firstName.touched() && firstName.invalid()) {
+      <p class="field__error" id="first-name-error">{{ firstName.errors()[0].message }}</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="last-name">Nom</label>
+    <input
+      id="last-name"
+      [formField]="employeeForm.lastName"
+      [attr.aria-invalid]="lastName.touched() && lastName.invalid()"
+      [attr.aria-describedby]="lastName.touched() && lastName.invalid() ? 'last-name-error' : null"
+    />
+    @if (lastName.touched() && lastName.invalid()) {
+      <p class="field__error" id="last-name-error">{{ lastName.errors()[0].message }}</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="email">E-mail</label>
+    <input
+      id="email"
+      type="email"
+      [formField]="employeeForm.email"
+      [attr.aria-invalid]="emailField.touched() && emailField.invalid()"
+      [attr.aria-describedby]="emailField.touched() && emailField.invalid() ? 'email-error' : null"
+    />
+    @if (emailField.touched() && emailField.invalid()) {
+      <p class="field__error" id="email-error">{{ emailField.errors()[0].message }}</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="job">Poste</label>
+    <input
+      id="job"
+      [formField]="employeeForm.job"
+      [attr.aria-invalid]="job.touched() && job.invalid()"
+      [attr.aria-describedby]="job.touched() && job.invalid() ? 'job-error' : 'job-hint'"
+    />
+    <small id="job-hint">{{ job.value().length }} / 40 caractères</small>
+    @if (job.touched() && job.invalid()) {
+      <p class="field__error" id="job-error">{{ job.errors()[0].message }}</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="department">Service</label>
+    <select id="department" [formField]="employeeForm.department">
+      @for (department of departments; track department) {
+        <option [value]="department">{{ department }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="field field--inline">
+    <input id="remote" type="checkbox" [formField]="employeeForm.remote" />
+    <label for="remote">En télétravail</label>
+  </div>
+
+  <!-- Defi avance phase 5 : le champ n'existe que si la case est cochee. -->
+  @if (employeeForm.remote().value()) {
+    <div class="field">
+      <label for="remote-days">Jours de télétravail par semaine</label>
+      <input
+        id="remote-days"
+        type="number"
+        [formField]="employeeForm.remoteDays"
+        [attr.aria-invalid]="remoteDays.touched() && remoteDays.invalid()"
+        [attr.aria-describedby]="
+          remoteDays.touched() && remoteDays.invalid() ? 'remote-days-error' : null
+        "
+      />
+      @if (remoteDays.touched() && remoteDays.invalid()) {
+        <p class="field__error" id="remote-days-error">{{ remoteDays.errors()[0].message }}</p>
+      }
+    </div>
+  }
+
+  <div class="form__actions">
+    <!-- Defi intermediaire phase 5 : pas de double envoi pendant l'action. -->
+    <button matButton="filled" type="submit" [disabled]="formState.submitting()">Ajouter</button>
+    <button matButton="outlined" type="button" (click)="resetForm()">Effacer</button>
+  </div>
+</form>

@@ -1,0 +1,26 @@
+<article class="card">
+  <div class="card__header">
+    <!-- Decoratif : le nom complet est juste a cote, on ne le lit pas deux fois. -->
+    <span class="card__avatar" aria-hidden="true">{{ initials() }}</span>
+    <div>
+      <h3 class="card__name">
+        <!-- Defi intermediaire phase 4 : le nom mene a la fiche du collegue. -->
+        <a [routerLink]="['/equipe', employee().id]">
+          {{ employee().firstName }} {{ employee().lastName }}
+        </a>
+      </h3>
+      <p class="card__job">{{ employee().job }}</p>
+    </div>
+  </div>
+
+  @if (!compact()) {
+    <p>{{ employee().department }}</p>
+    <a [href]="'mailto:' + employee().email">{{ employee().email }}</a>
+    <p class="card__status">
+      <app-status-badge [remote]="employee().remote" />
+      @if (employee().remoteDays) {
+        <span>{{ employee().remoteDays }} j / semaine</span>
+      }
+    </p>
+  }
+</article>

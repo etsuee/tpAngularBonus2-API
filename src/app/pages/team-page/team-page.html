@@ -1,0 +1,46 @@
+<h1>L'équipe</h1>
+<p>{{ employeeCount() }} collègue(s), dont {{ remoteCount() }} en télétravail</p>
+
+<div class="filters">
+  <!-- [( )] : la recherche circule dans les deux sens entre la page et SearchBox. -->
+  <app-search-box [(query)]="search" />
+
+  <div class="filter">
+    <label for="department-filter">Service</label>
+    <select
+      #departmentSelect
+      id="department-filter"
+      [value]="department()"
+      (change)="department.set(departmentSelect.value)"
+    >
+      <option value="">Tous les services</option>
+      @for (name of departments(); track name) {
+        <option [value]="name">{{ name }}</option>
+      }
+    </select>
+  </div>
+</div>
+
+<p aria-live="polite">{{ filteredEmployees().length }} collègue(s) affiché(s)</p>
+
+<ul class="team">
+  @for (employee of filteredEmployees(); track employee.id) {
+    <li>
+      <!-- $index commence a 0, $count est la taille de la liste affichee. -->
+      <p class="team__position">Collègue {{ $index + 1 }} / {{ $count }}</p>
+      <app-employee-card [employee]="employee" [compact]="$first" />
+      <!-- L'icone est decorative (MatIcon pose aria-hidden) : le nom vient de aria-label. -->
+      <button
+        matIconButton
+        type="button"
+        class="remove"
+        [attr.aria-label]="'Retirer ' + employee.firstName + ' ' + employee.lastName"
+        (click)="remove(employee.id)"
+      >
+        <mat-icon fontSet="material-symbols-outlined">delete</mat-icon>
+      </button>
+    </li>
+  } @empty {
+    <li>Aucun collègue ne correspond à votre recherche.</li>
+  }
+</ul>

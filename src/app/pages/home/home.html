@@ -1,0 +1,58 @@
+<h1>Bonjour {{ userName }}</h1>
+<p>Nous sommes en {{ 2020 + 6 }}. Votre prénom compte {{ userName.length }} lettres.</p>
+<p>En majuscules : {{ userName.toUpperCase() }}</p>
+
+<div class="actions">
+  <button matButton="tonal" type="button" (click)="sayHello()">Dire bonjour</button>
+  <!-- Defi intermediaire phase 1 : vider le message. -->
+  <button matButton type="button" [disabled]="message === ''" (click)="clearMessage()">
+    Effacer
+  </button>
+</div>
+<!-- Defi avance phase 1 : le pipe uppercase transforme l'affichage, pas la propriete. -->
+<p aria-live="polite">{{ message | uppercase }}</p>
+
+<!-- Defi avance phase 1 : #tryInput designe le champ, (input) recopie sa valeur. -->
+<div class="try">
+  <label for="try">Champ d'essai</label>
+  <input #tryInput id="try" type="text" (input)="typed.set(tryInput.value)" />
+  <p>Vous tapez : {{ typed()  }}</p>
+</div>
+
+<section aria-labelledby="status-title">
+  <h2 id="status-title">Mon statut aujourd'hui</h2>
+  <p>
+    Vous êtes : <strong>{{ status() }}</strong>
+  </p>
+  <div class="status__actions">
+    <button
+      matButton="outlined"
+      type="button"
+      [attr.aria-pressed]="status() === 'sur site'"
+      (click)="changeStatus('sur site')"
+    >
+      Sur site
+    </button>
+    <button
+      matButton="outlined"
+      type="button"
+      [attr.aria-pressed]="status() === 'en télétravail'"
+      (click)="changeStatus('en télétravail')"
+    >
+      En télétravail
+    </button>
+    <button
+      matButton="outlined"
+      type="button"
+      [attr.aria-pressed]="status() === 'absent'"
+      (click)="changeStatus('absent')"
+    >
+      Absent
+    </button>
+  </div>
+</section>
+
+<section aria-labelledby="leave-title">
+  <h2 id="leave-title">Mes congés</h2>
+  <app-leave-counter />
+</section>

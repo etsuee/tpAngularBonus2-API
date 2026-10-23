@@ -1,0 +1,19 @@
+.counter--empty {
+  color: #b91c1c;
+  font-weight: 700;
+}
+
+.counter__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.counter__history-title {
+  margin: 1rem 0 0;
+  font-size: 1rem;
+}
+
+.counter__history {
+  margin: 0.25rem 0 0;
+}
